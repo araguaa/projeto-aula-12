@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import Cadastro from "./components/Cadastro";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import { useAuth } from "./context/AuthContext";
+import ListaUsuarios from "./components/ListaUsuarios";
+import Home from "./pages/Home";
+import Usuarios from "./pages/Usuarios";
+import Profile from "./pages/Profile";
 
 function App() {
 
@@ -57,17 +62,30 @@ function App() {
 
               ) : (
 
-                <div className="logged-user">
+                <Routes>
 
-                  <h2>
-                    Bem-vindo, {user.name}
-                  </h2>
+                  <Route
+                    path="/"
+                    element={
+                      <Home user={user} />
+                    }
+                  />
 
-                  <p>
-                    Status: Online
-                  </p>
+                  <Route
+                    path="/usuarios"
+                    element={
+                      <Usuarios />
+                    }
+                  />
 
-                </div>
+                  <Route
+                    path="/profile"
+                    element={
+                      <Profile />
+                    }
+                  />
+
+                </Routes>
 
               )
             }

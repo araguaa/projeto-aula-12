@@ -67,7 +67,7 @@ body{
 
   width:500px;
 
-  padding:40px;
+  padding:30px;
 
   background:rgba(0,0,0,.7);
 
@@ -76,11 +76,14 @@ body{
   text-align:center;
 
   border-radius:10px;
+
+  margin-top:70px;
 }
 
 .content h1{
   font-size:35px;
-  margin-bottom:20px;
+  margin-bottom:25px;
+  margin-top:10px;
   color:#c8aa6e;
 }
 
@@ -159,4 +162,33 @@ p{
   border:1px solid #c8aa6e;
 
   border-radius:10px;
+}
+
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap:40px;
+}
+
+.nav-links{
+  display:flex;
+  gap:25px;
+}
+
+.nav-links a{
+  color:white;
+  text-decoration:none;
+  font-weight:500;
+  transition:0.3s;
+}
+
+.nav-links a:hover{
+  color:#c8aa6e;
+}
+
+.logo{
+  text-decoration:none;
+  color:#c8aa6e;
+  font-size:24px;
+  font-weight:bold;
 }
