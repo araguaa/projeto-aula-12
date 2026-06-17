@@ -152,9 +152,3 @@ Durante o desenvolvimento deste projeto foram aplicados conceitos como:
 * Validação de formulários
 * Tratamento de erros
 * Persistência de dados com SQLite
-
-## Autor
-
-Willian Peres
-
-Projeto desenvolvido para fins acadêmicos e aprendizado em desenvolvimento web.
