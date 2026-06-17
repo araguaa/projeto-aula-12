@@ -106,4 +106,117 @@ router.post('/login', (req,res)=>{
 
 });
 
+router.get("/", (req, res) => {
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 5;
+
+  const offset = (page - 1) * limit;
+
+  db.all(
+    `
+    SELECT id, name, email
+    FROM users
+    LIMIT ? OFFSET ?
+    `,
+    [limit, offset],
+    (err, users) => {
+
+      if (err) {
+
+        return res.status(500).json({
+          message: "Erro ao buscar usuários"
+        });
+
+      }
+
+      db.get(
+        "SELECT COUNT(*) as total FROM users",
+        [],
+        (err, result) => {
+
+          if (err) {
+
+            return res.status(500).json({
+              message: "Erro ao contar usuários"
+            });
+
+          }
+
+          res.status(200).json({
+
+            users,
+
+            total: result.total,
+
+            page,
+
+            totalPages: Math.ceil(
+              result.total / limit
+            )
+
+          });
+
+        }
+      );
+
+    }
+  );
+
+});
+
+router.put("/change-password", (req, res) => {
+
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+
+    return res.status(400).json({
+      message: "Dados obrigatórios"
+    });
+
+  }
+
+  if (password.length < 6) {
+
+    return res.status(400).json({
+      message: "A senha deve possuir no mínimo 6 caracteres"
+    });
+
+  }
+
+  db.run(
+    `
+    UPDATE users
+    SET password = ?
+    WHERE email = ?
+    `,
+    [password, email],
+    function (err) {
+
+      if (err) {
+
+        return res.status(500).json({
+          message: "Erro ao atualizar senha"
+        });
+
+      }
+
+      if (this.changes === 0) {
+
+        return res.status(404).json({
+          message: "Usuário não encontrado"
+        });
+
+      }
+
+      return res.status(200).json({
+        message: "Senha alterada com sucesso"
+      });
+
+    }
+  );
+
+});
+
 module.exports = router;
