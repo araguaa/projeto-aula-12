@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import api from "../services/api";
+import { toast } from "react-toastify";
 
 function Cadastro() {
 
@@ -24,15 +25,15 @@ function Cadastro() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
       reset();
 
     } catch (error) {
 
       if (error.response) {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
-        alert("Erro de comunicação com servidor");
+        toast.error("Erro de comunicação com servidor");
       }
 
     }
